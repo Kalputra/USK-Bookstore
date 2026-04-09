@@ -113,7 +113,7 @@ export default function Index({ auth, books, categories }) {
                             onChange={(e) =>
                                 setSelectedCategory(e.target.value)
                             }
-                            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent pr-10"
                         >
                             <option value="">Semua Kategori</option>
                             {categories.map((category) => (

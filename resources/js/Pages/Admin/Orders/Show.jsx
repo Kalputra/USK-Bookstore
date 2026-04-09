@@ -32,7 +32,7 @@ export default function Show({ auth, order }) {
                                 href={route("admin.orders.index")}
                                 className="text-red-600 hover:text-red-700 mb-4 inline-block"
                             >
-                                ← Kembali
+                                Kembali
                             </Link>
 
                             {/* Info Pesanan */}
