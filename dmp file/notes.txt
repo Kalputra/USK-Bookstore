@@ -1,0 +1,21 @@
+Tools yang digunakan:
+
+Laravel Herd :
+Server development local dan all in one sudah khusus untuk PHP dan Laravel
+
+Tableplus :
+Alat untuk manajemen database (MySQL, SQLite, etc.)
+
+Dbngin :
+Alat untuk menjalankan database
+
+
+Tech Stack:
+
+Laravel 11 ( Backend )
+
+React 10 ( Frontend ) 
+
+Inertia.js ( Bridge )
+
+Tailwind CSS ( Styling )
