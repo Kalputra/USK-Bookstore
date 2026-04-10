@@ -9,11 +9,13 @@ use Inertia\Inertia;
 
 class ContactController extends Controller
 {
+    // Tampilin halaman form kontak
     public function index()
     {
         return Inertia::render('User/Contact');
     }
 
+    // Simpen pesan kontak dari user ke DB
     public function store(Request $request)
     {
         $request->validate([
@@ -21,14 +23,16 @@ class ContactController extends Controller
             'message' => 'required|string',
         ]);
 
+        $user = $request->user();
+
         ContactMessage::create([
-            'user_id' => auth()->id(),
-            'name' => auth()->user()->name,
-            'email' => auth()->user()->email,
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
             'subject' => $request->subject,
             'message' => $request->message,
         ]);
 
-        return back()->with('success', 'Message sent successfully.');
+        return redirect()->back()->with('success', 'Pesan Anda telah dikirim.');
     }
 }

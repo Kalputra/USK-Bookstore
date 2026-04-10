@@ -22,6 +22,7 @@ class ContactMessage extends Model
         'is_read' => 'boolean',
     ];
 
+    // Relasi ke user yang kirim pesan
     public function user()
     {
         return $this->belongsTo(User::class);

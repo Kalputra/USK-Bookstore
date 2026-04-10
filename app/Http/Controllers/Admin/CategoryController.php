@@ -10,6 +10,7 @@ use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
+    // Tampilin list kategori beserta jumlah buku di masing-masing kategori
     public function index()
     {
         $categories = Category::withCount('books')->latest()->get();
@@ -18,11 +19,13 @@ class CategoryController extends Controller
         ]);
     }
 
+    // Buka form halaman buat nambah kategori baru
     public function create()
     {
         return Inertia::render('Admin/Categories/Create');
     }
 
+    // Simpen kategori baru ke DB, generate slug otomatis dari nama
     public function store(Request $request)
     {
         $request->validate([
@@ -40,6 +43,7 @@ class CategoryController extends Controller
             ->with('success', 'Category created successfully.');
     }
 
+    // Load data kategori yang mau diedit buat form
     public function edit(Category $category)
     {
         return Inertia::render('Admin/Categories/Edit', [
@@ -47,6 +51,7 @@ class CategoryController extends Controller
         ]);
     }
 
+    // Update nama + slug + deskripsi kategori
     public function update(Request $request, Category $category)
     {
         $request->validate([
@@ -64,10 +69,15 @@ class CategoryController extends Controller
             ->with('success', 'Category updated successfully.');
     }
 
+    // Hapus kategori tapi cek dulu kalo masih ada buku jangan sampe kehapus
     public function destroy(Category $category)
     {
+        if ($category->books_count > 0 || $category->books()->count() > 0) {
+            return back()->with('error', 'Tidak bisa hapus kategori karena masih ada buku yang terkait (' . $category->books_count . ' buku). Pindahkan atau hapus buku terlebih dahulu.');
+        }
+
         $category->delete();
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Category deleted successfully.');
+            ->with('success', 'Kategori berhasil dihapus.');
     }
 }

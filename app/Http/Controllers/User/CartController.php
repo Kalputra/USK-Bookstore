@@ -9,6 +9,7 @@ use Inertia\Inertia;
 
 class CartController extends Controller
 {
+    // Tampilin isi keranjang dari session + calculate total
     public function index()
     {
         $cart = session()->get('cart', []);
@@ -33,6 +34,7 @@ class CartController extends Controller
         ]);
     }
 
+    // Tambah buku ke cart session, cek stok dulu
     public function add(Book $book)
     {
         if ($book->stock <= 0) {
@@ -59,6 +61,7 @@ class CartController extends Controller
         return back()->with('success', 'Buku ditambah ke keranjang!');
     }
 
+    // Hapus buku dari cart session
     public function remove(Book $book)
     {
         $cart = session()->get('cart', []);
@@ -71,6 +74,7 @@ class CartController extends Controller
         return back()->with('success', 'Book removed from cart successfully.');
     }
 
+    // Update jumlah buku di cart, cek max stock
     public function update(Request $request, Book $book)
     {
         $request->validate([

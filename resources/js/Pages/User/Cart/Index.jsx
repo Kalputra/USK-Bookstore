@@ -5,6 +5,7 @@ import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm, router } from "@inertiajs/react";
 import { useState } from "react";
 
+// Halaman keranjang belanja user + form checkout COD
 export default function Index({ auth, cartItems, total }) {
     const { delete: destroy, processing } = useForm();
     const [showCheckout, setShowCheckout] = useState(false);

@@ -25,11 +25,13 @@ class Order extends Model
         'total_amount' => 'decimal:2',
     ];
 
+    // Relasi ke user yang pesen
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    // Relasi ke semua item di order ini
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);

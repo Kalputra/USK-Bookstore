@@ -10,6 +10,7 @@ use Inertia\Inertia;
 
 class BookController extends Controller
 {
+    // Tampilin buku buat user, bisa search title/author + filter kategori + stok >0 doang
     public function index(Request $request)
     {
         $query = Book::with('category');
@@ -32,6 +33,7 @@ class BookController extends Controller
         ]);
     }
 
+    // Detail 1 buku spesifik + load kategorinya
     public function show(Book $book)
     {
         $book->load('category');

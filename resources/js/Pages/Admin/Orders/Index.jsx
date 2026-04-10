@@ -1,6 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
+// Halaman admin list semua orders + status + link detail
 export default function Index({ auth, orders }) {
     return (
         <AuthenticatedLayout

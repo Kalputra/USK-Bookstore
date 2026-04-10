@@ -12,9 +12,10 @@ use Inertia\Inertia;
 
 class OrderController extends Controller
 {
+    // List order milik user yang login aja
     public function index()
     {
-        $orders = Order::where('user_id', auth()->id())
+        $orders = Order::where('user_id', auth()->user()->id)
             ->with('orderItems.book')
             ->latest()
             ->get();
@@ -24,6 +25,7 @@ class OrderController extends Controller
         ]);
     }
 
+    // Checkout dari cart -> create order + orderItems + kurangin stock buku + generate order_number
     public function store(Request $request)
     {
         $request->validate([
@@ -76,6 +78,7 @@ class OrderController extends Controller
             ->with('success', 'Order placed successfully.');
     }
 
+    // Detail order spesifik (cek user punya hak liat)
     public function show(Order $order)
     {
         if ($order->user_id !== auth()->id()) {
@@ -89,6 +92,7 @@ class OrderController extends Controller
         ]);
     }
 
+    // User konfirmasi udah bayar (COD), update status completed + paid
     public function confirmPayment(Order $order)
     {
         if ($order->user_id !== auth()->id()) {

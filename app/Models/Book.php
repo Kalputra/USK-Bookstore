@@ -28,11 +28,13 @@ class Book extends Model
         'price' => 'decimal:2',
     ];
 
+    // Relasi ke parent category
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
+    // Relasi ke item-item order yang beli buku ini (1 buku banyak order item)
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);

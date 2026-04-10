@@ -9,6 +9,7 @@ use Inertia\Inertia;
 
 class OrderController extends Controller
 {
+    // Tampilin semua order user buat admin pantau
     public function index()
     {
         $orders = Order::with('user')->latest()->get();
@@ -17,6 +18,7 @@ class OrderController extends Controller
         ]);
     }
 
+    // Detail order lengkap + user + item buku-itemnya
     public function show(Order $order)
     {
         $order->load('user', 'orderItems.book');
@@ -25,6 +27,7 @@ class OrderController extends Controller
         ]);
     }
 
+    // Update status order (pending->processing->shipped dst)
     public function updateStatus(Request $request, Order $order)
     {
         $request->validate([

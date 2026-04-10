@@ -4,10 +4,17 @@ import { Head, Link, useForm } from "@inertiajs/react";
 export default function Index({ auth, categories }) {
     const { delete: destroy } = useForm();
 
-    // Handle hapus kategori - pastiin dulu sebelum hapus
-    const handleDelete = (id) => {
-        if (confirm("Yakin ingin menghapus kategori ini?")) {
-            destroy(route("admin.categories.destroy", id));
+    // Handle hapus kategori - cek buku dulu + konfirmasi
+    const handleDelete = (category) => {
+        if (category.books_count > 0) {
+            alert(
+                `Tidak bisa hapus kategori "${category.name}" karena masih ada ${category.books_count} buku terkait. Pindahkan atau hapus buku terlebih dahulu.`,
+            );
+            return;
+        }
+
+        if (confirm(`Yakin ingin menghapus kategori "${category.name}"?`)) {
+            destroy(route("admin.categories.destroy", category.id));
         }
     };
 
@@ -97,12 +104,30 @@ export default function Index({ auth, categories }) {
                                                     <button
                                                         onClick={() =>
                                                             handleDelete(
-                                                                category.id,
+                                                                category,
                                                             )
                                                         }
-                                                        className="text-red-600 hover:text-red-900"
+                                                        className={`${
+                                                            category.books_count >
+                                                            0
+                                                                ? "text-yellow-600 hover:text-yellow-900 cursor-not-allowed"
+                                                                : "text-red-600 hover:text-red-900"
+                                                        }`}
+                                                        disabled={
+                                                            category.books_count >
+                                                            0
+                                                        }
+                                                        title={
+                                                            category.books_count >
+                                                            0
+                                                                ? `Ada ${category.books_count} buku, tidak bisa dihapus`
+                                                                : ""
+                                                        }
                                                     >
-                                                        Hapus
+                                                        {category.books_count >
+                                                        0
+                                                            ? `Hapus (${category.books_count} buku)`
+                                                            : "Hapus"}
                                                     </button>
                                                 </td>
                                             </tr>

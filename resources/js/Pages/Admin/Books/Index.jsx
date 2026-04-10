@@ -1,6 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
+// Halaman admin buat liat + kelola semua buku (list, edit, hapus)
 export default function Index({ auth, books }) {
     const { delete: destroy } = useForm();
 

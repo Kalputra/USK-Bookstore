@@ -44,12 +44,11 @@ export default function Welcome({ auth, books, categories }) {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between items-center h-20">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-gray-900 flex items-center justify-center rounded-lg">
-                                    <img
-                                        src="/images/icons/Logo-buku.png"
-                                        className="w-6 h-6 text-white"
-                                        alt="Pustaka Abadi Logo"
-                                    />
+                                <div className="w-12 h-12 bg-white-900 flex items-center justify-center rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                                </svg>
+
                                 </div>
                                 <div>
                                     <div className="text-sm font-bold text-gray-900 uppercase tracking-wider">

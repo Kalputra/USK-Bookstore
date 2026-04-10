@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Landing Page - Redirect to dashboard if already authenticated
+// Landing page homepage - redirect admin/user dashboard kalo udah login, tampil featured books + categories
 Route::get('/', function () {
     if (Auth::check()) {
         $user = Auth::user();
@@ -44,47 +44,47 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Admin Routes
+// Routes khusus admin - middleware auth + admin
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     
-    // Categories
+    // CRUD categories admin
     Route::resource('categories', CategoryController::class);
     
-    // Books
+    // CRUD books admin
     Route::resource('books', AdminBookController::class);
     
-    // Orders
+    // List + detail + update status orders admin
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
 });
 
-// User Routes
+// Routes user (auth required) - dashboard, books, cart, orders, contact, about
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
     
-    // Books
+    // List + detail books user
     Route::get('/books', [BookController::class, 'index'])->name('books.index');
     Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
     
-    // Cart
+    // Cart operations: view, add, update qty, remove
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add/{book}', [CartController::class, 'add'])->name('cart.add');
     Route::put('/cart/update/{book}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/remove/{book}', [CartController::class, 'remove'])->name('cart.remove');
     
-    // Orders
+    // Orders: list, checkout/store, detail, konfirmasi bayar
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/orders/{order}/confirm-payment', [OrderController::class, 'confirmPayment'])->name('orders.confirmPayment');
     
-    // Contact
+    // Contact form
     Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
     
-    // About
+    // About page
     Route::get('/about', function () {
         return Inertia::render('User/About');
     })->name('about');

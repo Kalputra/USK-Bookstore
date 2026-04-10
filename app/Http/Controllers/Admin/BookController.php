@@ -11,6 +11,7 @@ use Inertia\Inertia;
 
 class BookController extends Controller
 {
+    // Tampilin daftar semua buku ke halaman admin pake Inertia
     public function index()
     {
         $books = Book::with('category')->latest()->get();
@@ -19,6 +20,7 @@ class BookController extends Controller
         ]);
     }
 
+    // Buka form buat tambah buku baru, load semua kategori
     public function create()
     {
         $categories = Category::all();
@@ -27,6 +29,7 @@ class BookController extends Controller
         ]);
     }
 
+    // Simpen buku baru ke DB, validate form + upload cover image + generate slug
     public function store(Request $request)
     {
         $request->validate([
@@ -56,6 +59,7 @@ class BookController extends Controller
             ->with('success', 'Book created successfully.');
     }
 
+    // Load data buku yang mau diedit + semua kategori buat form
     public function edit(Book $book)
     {
         $categories = Category::all();
@@ -65,6 +69,7 @@ class BookController extends Controller
         ]);
     }
 
+    // Update data buku, validate + ganti cover kalo ada file baru + update slug
     public function update(Request $request, Book $book)
     {
         $request->validate([
@@ -94,6 +99,7 @@ class BookController extends Controller
             ->with('success', 'Book updated successfully.');
     }
 
+    // Hapus buku dari database, langsung redirect ke list
     public function destroy(Book $book)
     {
         $book->delete();

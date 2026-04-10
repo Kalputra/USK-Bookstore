@@ -2,6 +2,7 @@ import SidebarLayout from "@/Layouts/SidebarLayout";
 import { Head, Link } from "@inertiajs/react";
 import { useState, useEffect } from "react";
 
+// Halaman user liat riwayat pesanan sendiri
 export default function Index({ auth, orders }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
 

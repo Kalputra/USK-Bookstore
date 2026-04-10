@@ -22,11 +22,13 @@ class OrderItem extends Model
         'subtotal' => 'decimal:2',
     ];
 
+    // Relasi ke parent order
     public function order()
     {
         return $this->belongsTo(Order::class);
     }
 
+    // Relasi ke buku yang dipesan
     public function book()
     {
         return $this->belongsTo(Book::class);
