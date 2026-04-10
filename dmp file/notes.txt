@@ -14,7 +14,7 @@ Tech Stack:
 
 Laravel 11 ( Backend )
 
-React 10 ( Frontend ) 
+React 18 ( Frontend ) 
 
 Inertia.js ( Bridge )
 
